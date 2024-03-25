@@ -1,0 +1,117 @@
+body{
+    
+    background-image: url(rx7parking.png);
+    background-repeat: no-repeat;
+    background-color: black;
+    font-family: "Carrois Gothic SC", sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 235px 105px  auto 300px 1fr;
+    min-height: 100vh;
+    grid-template-areas: 
+        "contenedor contenedor contenedor"
+        "nav nav nav"
+        /*"video video video"*/
+        "content1 content1 content2"
+        "content1 content1 sidebar"
+        "footer footer footer"
+
+}
+
+body #container{
+    /* background: rgb(119, 48, 1); */
+    grid-area: contenedor;
+}
+body header{
+    display: flex;
+    flex-direction: column;
+    /* background: lightcoral; */
+    grid-area: header;
+    h1{
+        display: flex;
+        justify-content: center;
+        font-family: "Sedgwick Ave Display", cursive;
+        font-size: 85px;
+        color: orange;
+
+    }
+    p{
+        display: flex;
+        justify-content: center;
+        font-family: "Roboto", sans-serif;
+        font-size: 25px;
+        color: #E48900;
+    }
+}
+body nav{
+    display: flex;
+    flex-direction: column;
+    /* background: orange; */
+    grid-area: nav;
+    article{
+        display: flex;
+        justify-content: space-around;
+        
+    }
+    color: white;
+}
+Body #content{
+    /* background: greenyellow; */
+    grid-area: content1;
+    font-family: "Carrois Gothic SC", sans-serif;
+    font-size: 40px;
+    color:#c7c7c7
+    
+}
+body aside{
+    /* background: blue; */
+    grid-area: sidebar;
+}
+body #content2{
+    /* background: red; */
+    grid-area: content2;
+    color: rgb(253, 52, 52);
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    
+
+
+}
+body #contact{
+    /* background: purple; */
+    grid-area: footer;
+    color: gray;
+    
+}
+body #containervid{
+    /* background: black; */
+    grid-area: video;
+    display: flex;
+}
+img{
+    height: 300px;
+}
+.article-header-authDate{
+    font-size: 15px;
+}
+.link{
+    color: white;
+    cursor: pointer;
+}
+h2{
+    display: flex;
+    justify-content: center;
+    color: greenyellow;
+}
+#People{
+    color: green;
+    font-size: 40px;
+}
+li{
+    font-size: 25px;
+    display: flex;
+    justify-content: space-evenly;
+}

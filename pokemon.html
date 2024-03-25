@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8"/>
+                <title>POKEMON!</title>
+                <link rel="stylesheet" href="./style.css">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fredoka:wght@300..700&family=Josefin+Sans&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+        </head>
+        <body>
+        <section id="seleccionar-mascota">
+                <h1 class="titulo" style="font-size: 50px;">POKEMON! <br>🔥💧🌱</br></h1>
+                <h2 class="subtitulo" style="font-size: 32px;">elige tu mascota<br>༼ つ ◕_◕ ༽つ</br></h2>
+                <div id="contenedorTarjetas" class="tarjetas">
+                </div>    
+                <button id='boton-mascota'>seleccionar</button>
+        </section>
+        <section id="seleccionar-ataque">
+                <h1 class="titulo">POKEMON! 🔥💧🌱</h1>
+                <h2 class="subtitulo" style="font-size: 32px;">elige tu ataque<br>ᕦ(ò_óˇ)ᕤ</br></h2>
+                <div id="contenedorAtaques" class="tarjetas-ataque">
+                </div> 
+                <div id="mensajes">
+                        <p id="resultado">mucha suerte</p>
+                <section id="reiniciar">
+                        <button id="boton-reiniciar">REINICIAR</button>
+                </section>
+                </div>
+                <div class="ataques"> <!-- div padre -->
+                <div class="ataques-jugador"> <!-- "contenedor jugador" --> <!-- div hijo -->
+                        <p id="vidas-jugador">0</p>
+                        <p id="mascota-jugador"></p>
+                        <div id="ataques-del-jugador"></div> 
+                </div>
+                <div class="ataques-enemigo"> <!-- "contenedor enemigo" --> <!-- div hijo -->
+                        <p id="vidas-enemigo">0</p>
+                        <p id="mascota-enemigo"></p>
+                        <div id="ataques-del-enemigo"></div>     
+                </div>   
+                </div><!-- div padre -->
+        </section> 
+        <script src="./pokemon.js"></script>
+        </body>
+</html>

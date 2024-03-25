@@ -1,0 +1,148 @@
+body{
+        background-color:#294B29;/*color de fondo deseado*/
+        margin: 0;/*establece el margen para los cuatro lados*/
+        height: 80vh;/*establece la altura del cuerpo como el 100% del view port*/
+        display: flex;/*indica la capacidad de un elemento flexible para alterar sus dimensiones y llenar el espacio disponible*/
+        justify-content: center;/*centra horizontalmente*/
+        align-items: flex-start;/*centra verticalmente*/
+        font-family: "Fredoka", sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings:"wdth" 100;
+}
+#seleccionar-mascota{
+        display: flex;/*indica la capacidad de un elemento flexible para alterar sus dimensiones y llenar el espacio disponible*/
+        flex-direction: column;
+        justify-content: center;/*centra horizontalmente*/
+        align-items: center;/*centra verticalmente*/
+}
+.titulo{ 
+        color:yellow;
+        width: 300px;/*ancho de la caja*/
+        height: 135px;/*alto de la caja*/
+        background-color:#12372A;
+        text-align: center;/*centrar el texto horizontalmente*/
+        border-radius: 12px;/*radio de los bordes*/
+        margin-bottom: 1px;
+        font-size: 50px;
+}
+.subtitulo{
+        color:gainsboro;
+}
+.tarjetas, .tarjetas-ataque{
+        display: flex;
+        /*  width: 450px;
+        height: 240px;
+        border: 5px solid black;
+        background-color:#50623A; */
+        font-size: row;
+        justify-content: space-evenly;
+        align-items: center;
+}
+.tarjeta-de-pokemon{
+        width: 140px;/*ancho de la caja*/
+        height: 130px;/*alto de la caja*/
+        background-color: #789461;/*color de fondo de la caja*/
+        padding: 10px;/*espaciado interno(arriba/anajo e izquierda/derecha*/
+        box-sizing: border-box;/*cuadro de borde*/
+        margin: 10px;/*espaciado interno(arriba/anajo e izquierda/derecha*/
+        border: 3px solid #DBE7C9;/*tipo de borde solido*/
+        text-align: center;/*centrar el texto horizontalmente*/
+        line-height: .5;/*centrar el texto verticalmente (altura de la caja)*/
+        border-radius: 12px;/*radio de los bordes*/
+        font-style:normal; /*estilo de fuente*/
+        flex:wrap; /*Define si los elementos flexibles se fuerzan en una sola línea o pueden fluir en varias líneas.*/ 
+}
+.tarjeta-de-pokemon img{    /*quiero que la IMAGENque esta dentro de esta clase(tarjeta-de-pokemon) tenga estos estilos*/
+        width: 60px;
+}
+#boton-mascota{
+        background-color:transparent; /*color de fondo*/
+        border: 3px solid white;/*caracteristicas del borde(tamano/estilo/color)*/
+        color: greenyellow;/*color del texto*/
+        padding: 3px 11px;/*espaciado interno(arriba/anajo e izquierda/derecha*/
+        text-align: center;/*centrar el texto*/
+        text-decoration: none;/*sin subrayado*/
+        display: inline-block;/*mostrar como bloque en linea*/
+        font-size: 20px;/*tamano de fuente*/
+        margin: 15px 2px;/*margen externo (arriba/abajo e izquierda/derecha)*/
+        cursor: pointer;/*cambiar el cursor al pasar sobre el boton*/
+        border-radius: 20px;/*radio de los bordes*/
+        transition-duration: .5s;
+        height: 50px;
+        width: 200px;
+}
+#boton-mascota:hover{
+        background-color: #F7F6BB;
+        color: rgb(0, 0, 0);
+} 
+input{ /*elemento de entrada para formularios*/
+        display:none;
+}
+input:checked + label{
+        background-color: #F7F6BB;
+}
+#seleccionar-ataque{
+        flex-direction: column;
+        align-items: center;
+        font-size: 15px;
+}
+.texto-resultado-ataques{
+        position: absolute;
+        left: 10px;
+}
+.boton-de-ataque{
+        background-color: #50623A;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 20px;
+        border-color: transparent;
+        width: 100px;
+        color: white;
+        font-family: "Kode Mono", monospace;
+        font-size: 20px;
+        margin: 10px;
+}
+#mensajes{
+        font-size: 18px;
+        font-family: "Kode Mono", monospace;
+        width: 333px;
+        height: 100px;
+        background: #a5d777;
+        margin-top: 20px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+}
+#boton-reiniciar{ 
+        background-color: white;
+        border-radius: 20px;
+        width: 150px;
+        height: 30px;
+        border: 5px double gray;
+        transition-duration: 1s;
+}
+#boton-reiniciar:hover{
+        background-color: rgb(38, 162, 46);
+        color: white;
+}
+.ataques{
+        display: grid;
+        grid-template-columns: 100px 100px;
+        color: white;
+}
+#vidas-jugador, #vidas-enemigo{
+        font-size: 25px;
+        margin-bottom: 0;
+}
+.ataques-jugador, .ataques-enemigo{
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+@media (max-width: 360px){
+        .tarjetas, .tarjetas-ataque {
+        flex-direction: column;
+        }
+}

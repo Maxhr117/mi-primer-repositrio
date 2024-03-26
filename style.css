@@ -24,7 +24,7 @@ body{
         text-align: center;/*centrar el texto horizontalmente*/
         border-radius: 12px;/*radio de los bordes*/
         margin-bottom: 1px;
-        font-size: 50px;
+        font-size: 40px;
 }
 .subtitulo{
         color:gainsboro;
@@ -145,4 +145,12 @@ align-items: center;
         .tarjetas, .tarjetas-ataque {
         flex-direction: column;
         }
+}
+#ver-mapa{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+}
+#mapa{
+        border: 2px solid white;
 }

@@ -12,6 +12,8 @@ const ataqueDelJugador = document.getElementById('ataques-del-jugador')
 const ataqueDelEnemigo = document.getElementById('ataques-del-enemigo')
 const contenedorTarjetas = document.getElementById('contenedorTarjetas')
 const contenedorAtaques = document.getElementById('contenedorAtaques')
+const sectionVerMapa = document.getElementById("ver-mapa")
+const mapa = document.getElementById("mapa")
 
 let pokemones = []//los corchetes cuadrados son para ir metiendo cada uno de los valores que me interesen. En este caso van a ser cada uno de los objetos que ya construimos.
 let ataqueJugador = []
@@ -34,7 +36,7 @@ let victoriasEnemigo = 0
 let vidasJugador = 3
 let vidasEnemigo = 3 
 let ataques
-
+let lienzo = mapa.getContext("2d")
 class Pokemon{
         constructor(nombre, foto, vida){
                 this.nombre = nombre
@@ -73,6 +75,8 @@ charmander.ataques.push(
 )
 function iniciarJuego(){  
         seleccionarAtaque.style.display = 'none'
+        sectionVerMapa.style.display = 'none'
+        
 
         pokemones.forEach((pokemon) => {   //por cada 'pokemon' que existe dentro de nuestro arreglo de 'pokemones' haz lo siguiente..
         opcionDePokemones = ` 
@@ -95,7 +99,18 @@ function iniciarJuego(){
 }
 function seleccionarMascotaJugador() {
         seleccionarMascota.style.display = 'none'
-        seleccionarAtaque.style.display = 'flex'  
+        //seleccionarAtaque.style.display = 'flex'  
+        sectionVerMapa.style.display = 'flex'
+        let imagenDeCharmander = new Image()
+        imagenDeCharmander.src = charmander.foto
+
+        lienzo.drawImage(
+                imagenDeCharmander,
+                20,
+                40,
+                100,
+                100,
+        )
 
         if (inputStaryu.checked) {
                 spanMascotaJugador.innerHTML = inputStaryu.id

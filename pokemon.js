@@ -38,7 +38,8 @@ let vidasEnemigo = 3
 let ataques
 let lienzo = mapa.getContext("2d")
 let intervalo 
-
+let mapaBackground = new Image()
+mapaBackground.src = './mokemap.png'
 class Pokemon{
         constructor(nombre, foto, vida){
                 this.nombre = nombre
@@ -269,10 +270,17 @@ function reiniciarJuego() {
 function aleatorio(min, max) {
         return Math.floor(Math.random()*(max - min + 1)+min)    
 }
-function pintarPersonaje() {
+function pintarCanvas() {
         charmander.x = charmander.x + charmander.veolcidadX
         charmander.y = charmander.y + charmander.veolcidadY
         lienzo.clearRect(0, 0, mapa.width, mapa.height)
+        lienzo.drawImage(
+                mapaBackground,
+                0,
+                0,
+                mapa.width,
+                mapa.height
+        )
         lienzo.drawImage(
                 charmander.mapaFoto,
                 charmander.x,
@@ -284,7 +292,7 @@ function pintarPersonaje() {
 
 function moverDerecha() {
         charmander.veolcidadX = 5
-        pintarPersonaje()
+        
 }
 function moverIzquierda() {
         charmander.veolcidadX = - 5
@@ -319,7 +327,9 @@ function sePresionoUnaTecla(event) {
 }
 
 function iniciarMapa() {
-        intervalo = setInterval(pintarPersonaje, 50)
+        mapa.width = 800
+        mapa.height = 600
+        intervalo = setInterval(pintarCanvas, 50)
         
         window.addEventListener("keydown", sePresionoUnaTecla)
         window.addEventListener("keyup", detenerMovimiento)

@@ -37,12 +37,22 @@ let vidasJugador = 3
 let vidasEnemigo = 3 
 let ataques
 let lienzo = mapa.getContext("2d")
+let intervalo 
+
 class Pokemon{
         constructor(nombre, foto, vida){
                 this.nombre = nombre
                 this.foto = foto
                 this.vida = vida
                 this.ataques = []
+                this.x = 20
+                this.y = 30
+                this.ancho = 80
+                this.alto = 80
+                this.mapaFoto = new Image()
+                this.mapaFoto.src = foto
+                this.veolcidadX = 0 
+                this.veolcidadY = 0
         }
 }
 
@@ -101,16 +111,10 @@ function seleccionarMascotaJugador() {
         seleccionarMascota.style.display = 'none'
         //seleccionarAtaque.style.display = 'flex'  
         sectionVerMapa.style.display = 'flex'
-        let imagenDeCharmander = new Image()
-        imagenDeCharmander.src = charmander.foto
+        intervalo = setInterval(pintarPersonaje, 50)
+        
 
-        lienzo.drawImage(
-                imagenDeCharmander,
-                20,
-                40,
-                100,
-                100,
-        )
+       
 
         if (inputStaryu.checked) {
                 spanMascotaJugador.innerHTML = inputStaryu.id
@@ -267,4 +271,36 @@ function reiniciarJuego() {
 function aleatorio(min, max) {
         return Math.floor(Math.random()*(max - min + 1)+min)    
 }
+function pintarPersonaje() {
+        charmander.x = charmander.x + charmander.veolcidadX
+        charmander.y = charmander.y + charmander.veolcidadY
+        lienzo.clearRect(0, 0, mapa.width, mapa.height)
+        lienzo.drawImage(
+                charmander.mapaFoto,
+                charmander.x,
+                charmander.y,
+                charmander.ancho,
+                charmander.alto
+        )
+}
+
+function moverDerecha() {
+        charmander.veolcidadX = 5
+        pintarPersonaje()
+}
+function moverIzquierda() {
+        charmander.veolcidadX = - 5
+}
+function moverAbajo() {
+        charmander.veolcidadY = 5
+}
+function moverArriba() {
+        charmander.veolcidadY = - 5
+}
+function detenerMovimiento() {
+        charmander.veolcidadX = 0
+        charmander.veolcidadY = 0
+}
+
+
 window.addEventListener('load', iniciarJuego)

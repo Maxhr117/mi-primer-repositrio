@@ -23,6 +23,8 @@ let inputStaryu
 let inputCubone
 let inputCharmander
 let mascotaJugador
+let mascotaJugadorObjeto
+
 let ataquesPokemon
 let ataquesPokemonEnemigo
 let botonFuego
@@ -41,25 +43,39 @@ let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = './mokemap.png'
 class Pokemon{
-        constructor(nombre, foto, vida){
+        constructor(nombre, foto, vida, fotoMapa, x = 10, y = 10 ){
                 this.nombre = nombre
                 this.foto = foto
                 this.vida = vida
                 this.ataques = []
-                this.x = 20
-                this.y = 30
-                this.ancho = 80
-                this.alto = 80
+                this.x = x
+                this.y = y
+                this.ancho = 40
+                this.alto = 40
                 this.mapaFoto = new Image()
-                this.mapaFoto.src = foto
+                this.mapaFoto.src = fotoMapa
                 this.veolcidadX = 0 
                 this.veolcidadY = 0
         }
+        pintarPokemon() {
+                lienzo.drawImage(
+                        this.mapaFoto,
+                        this.x,
+                        this.y,
+                        this.ancho,
+                        this.alto
+                )        
+        }
 }
 
-let staryu = new Pokemon('Staryu'/* nombre */, 'staryu.png'/* foto */, 5/* vida */)
-let cubone = new Pokemon('Cubone', 'cubone.png', 5)
-let charmander = new Pokemon('Charmander', 'charmander.png', 5)
+let staryu = new Pokemon('Staryu', 'staryu.png', 5, 'staryu2.png')   /* nombre *//* foto *//* vida */ 
+let cubone = new Pokemon('Cubone', 'cubone.png', 5, 'Cubone2.png')
+let charmander = new Pokemon('Charmander', 'charmander.png', 5, 'charmi.png')
+
+let staryuEnemigo = new Pokemon('Staryu', 'staryu.png', 5, 'staryu2.png',450, 320)   /* nombre *//* foto *//* vida */ 
+let cuboneEnemigo = new Pokemon('Cubone', 'cubone.png', 5, 'Cubone2.png', 150, 95)
+let charmanderEnemigo = new Pokemon('Charmander', 'charmander.png', 5, 'charmi.png', 500, 190)
+
 pokemones.push(staryu,cubone,charmander) //esto es un arreglo(array)
 
 //push espara empujar o inyectar informacion.
@@ -111,8 +127,7 @@ function iniciarJuego(){
 function seleccionarMascotaJugador() {
         seleccionarMascota.style.display = 'none'
         //seleccionarAtaque.style.display = 'flex'  
-        sectionVerMapa.style.display = 'flex'
-        iniciarMapa()
+        
        
 
         if (inputStaryu.checked) {
@@ -127,12 +142,14 @@ function seleccionarMascotaJugador() {
         } else {
                 alert('tienes que seleccionar una mascota')
         }
-        extraerAtaques(mascotaJugador) 
+        extraerAtaques(mascotaJugador)
+        sectionVerMapa.style.display = 'flex'
+        iniciarMapa() 
         seleccionarMascotaEnemigo()
 }
 function extraerAtaques(mascotaJugador){
         let ataques
-                for (let i = 0; i < pokemones.length; i++) {
+        for (let i = 0; i < pokemones.length; i++) {
                 if (mascotaJugador === pokemones[i].nombre) {
                         ataques = pokemones[i].ataques
                 }
@@ -271,8 +288,9 @@ function aleatorio(min, max) {
         return Math.floor(Math.random()*(max - min + 1)+min)    
 }
 function pintarCanvas() {
-        charmander.x = charmander.x + charmander.veolcidadX
-        charmander.y = charmander.y + charmander.veolcidadY
+        
+        mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.veolcidadX
+        mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.veolcidadY
         lienzo.clearRect(0, 0, mapa.width, mapa.height)
         lienzo.drawImage(
                 mapaBackground,
@@ -281,31 +299,33 @@ function pintarCanvas() {
                 mapa.width,
                 mapa.height
         )
-        lienzo.drawImage(
-                charmander.mapaFoto,
-                charmander.x,
-                charmander.y,
-                charmander.ancho,
-                charmander.alto
-        )
+       mascotaJugadorObjeto.pintarPokemon()
+       staryuEnemigo.pintarPokemon()
+       charmanderEnemigo.pintarPokemon()
+       cuboneEnemigo.pintarPokemon()
+       if (mascotaJugadorObjeto.veolcidadX !== 0 || mascotaJugadorObjeto.veolcidadY !== 0) {
+        revisarColision(charmanderEnemigo)
+        revisarColision(staryuEnemigo)
+        revisarColision(cuboneEnemigo)
+       }         
 }
 
 function moverDerecha() {
-        charmander.veolcidadX = 5
+        mascotaJugadorObjeto.veolcidadX = 5
         
 }
 function moverIzquierda() {
-        charmander.veolcidadX = - 5
+        mascotaJugadorObjeto.veolcidadX = - 5
 }
 function moverAbajo() {
-        charmander.veolcidadY = 5
+        mascotaJugadorObjeto.veolcidadY = 5
 }
 function moverArriba() {
-        charmander.veolcidadY = - 5
+        mascotaJugadorObjeto.veolcidadY = - 5
 }
 function detenerMovimiento() {
-        charmander.veolcidadX = 0
-        charmander.veolcidadY = 0
+        mascotaJugadorObjeto.veolcidadX = 0
+        mascotaJugadorObjeto.veolcidadY = 0
 }
 function sePresionoUnaTecla(event) {
         switch (event.key) {
@@ -329,9 +349,41 @@ function sePresionoUnaTecla(event) {
 function iniciarMapa() {
         mapa.width = 800
         mapa.height = 600
+        mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)
+        console.log(mascotaJugadorObjeto, mascotaJugador);
         intervalo = setInterval(pintarCanvas, 50)
-        
         window.addEventListener("keydown", sePresionoUnaTecla)
         window.addEventListener("keyup", detenerMovimiento)
 }
+function obtenerObjetoMascota() {
+        for (let i = 0; i < pokemones.length; i++) {
+                if (mascotaJugador === pokemones[i].nombre) {
+                        return pokemones[i]
+                }
+        }
+}
+
+function revisarColision(enemigo) {
+        const arribaEnemigo = enemigo.y
+        const abajoEnemigo = enemigo.y + enemigo.alto
+        const derechaEnemigo = enemigo.x + enemigo.ancho
+        const izquierdaEnemigo = enemigo.x 
+
+        const arribaMascota = mascotaJugadorObjeto.y
+        const abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+        const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+        const izquierdaMascota = mascotaJugadorObjeto.x 
+        if(
+                abajoMascota < arribaEnemigo ||
+                arribaMascota > abajoEnemigo ||
+                derechaMascota < izquierdaEnemigo ||
+                izquierdaMascota > derechaEnemigo    
+        ) {
+                return
+        }
+
+        detenerMovimiento()
+        alert("hay colision" + enemigo.nombre)
+}
+
 window.addEventListener('load', iniciarJuego)

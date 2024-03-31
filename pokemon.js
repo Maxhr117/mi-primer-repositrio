@@ -86,7 +86,21 @@ staryu.ataques.push(
         {nombre: '🔥', id: 'boton-fuego'},
         {   nombre: '🌱', id: 'boton-tierra'},
 ) 
+staryuEnemigo.ataques.push(
+        {nombre: '💧', id: 'boton-agua'},
+        {nombre: '💧', id: 'boton-agua'},
+        {nombre: '💧', id: 'boton-agua'},
+        {nombre: '🔥', id: 'boton-fuego'},
+        {   nombre: '🌱', id: 'boton-tierra'},
+) 
 cubone.ataques.push(
+        {nombre: '🌱', id: 'boton-tierra'},
+        {nombre: '🌱', id: 'boton-tierra'},
+        {nombre: '🌱', id: 'boton-tierra'},
+        {nombre: '🔥', id: 'boton-fuego'},
+        {nombre: '💧', id: 'boton-agua'},
+)
+cuboneEnemigo.ataques.push(
         {nombre: '🌱', id: 'boton-tierra'},
         {nombre: '🌱', id: 'boton-tierra'},
         {nombre: '🌱', id: 'boton-tierra'},
@@ -95,7 +109,14 @@ cubone.ataques.push(
 )
 charmander.ataques.push(
         {nombre: '🔥', id: 'boton-fuego'},
-        {   nombre: '🔥', id: 'boton-fuego'},
+        {nombre: '🔥', id: 'boton-fuego'},
+        {nombre: '🔥', id: 'boton-fuego'},
+        {nombre: '💧', id: 'boton-agua'},
+        {nombre: '🌱', id: 'boton-tierra'},
+)
+charmanderEnemigo.ataques.push(
+        {nombre: '🔥', id: 'boton-fuego'},
+        {nombre: '🔥', id: 'boton-fuego'},
         {nombre: '🔥', id: 'boton-fuego'},
         {nombre: '💧', id: 'boton-agua'},
         {nombre: '🌱', id: 'boton-tierra'},
@@ -126,7 +147,7 @@ function iniciarJuego(){
 }
 function seleccionarMascotaJugador() {
         seleccionarMascota.style.display = 'none'
-        //seleccionarAtaque.style.display = 'flex'  
+          
         
        
 
@@ -145,7 +166,7 @@ function seleccionarMascotaJugador() {
         extraerAtaques(mascotaJugador)
         sectionVerMapa.style.display = 'flex'
         iniciarMapa() 
-        seleccionarMascotaEnemigo()
+        
 }
 function extraerAtaques(mascotaJugador){
         let ataques
@@ -174,7 +195,7 @@ function mostrarAtaques(ataques){
 }
 function secuenciaAtaque() {
         botones.forEach((boton) => {
-        boton.addEventListener('click',(e) =>{      // la "e" indica el evento mismo
+        boton.addEventListener('click', (e) => {      // la "e" indica el evento mismo
         if (e.target.textContent === '🔥') {
                 ataqueJugador.push('FUEGO')
                 console.log(ataqueJugador)
@@ -196,16 +217,18 @@ function secuenciaAtaque() {
         })
 }
 
-function seleccionarMascotaEnemigo() {
-        let mascotaAleatoria = aleatorio(0, pokemones.length -1)
+function seleccionarMascotaEnemigo(enemigo) {
+        
 
-        spanMascotaEnemigo.innerHTML = pokemones[mascotaAleatoria].nombre
-        ataquesPokemonEnemigo = pokemones[mascotaAleatoria].ataques
+        spanMascotaEnemigo.innerHTML = enemigo.nombre
+        ataquesPokemonEnemigo = enemigo.ataques
         secuenciaAtaque()
 }
 
 function ataqueAleatorioEnemigo() {
+        console.log("Ataques del enemigo")
         let ataqueAleatorio = aleatorio(0,ataquesPokemonEnemigo.length -1)
+
         if (ataqueAleatorio == 0 || ataqueAleatorio == 1) {
         ataqueEnemigo.push('FUEGO')
         } else if (ataqueAleatorio == 3 || ataqueAleatorio == 4) {
@@ -383,7 +406,12 @@ function revisarColision(enemigo) {
         }
 
         detenerMovimiento()
-        alert("hay colision" + enemigo.nombre)
+        clearInterval(intervalo)
+        console.log("se detecto una colision");
+        seleccionarAtaque.style.display = 'flex'
+        sectionVerMapa.style.display = 'none'
+        seleccionarMascotaEnemigo(enemigo)
+       
 }
 
 window.addEventListener('load', iniciarJuego)

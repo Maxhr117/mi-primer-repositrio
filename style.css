@@ -141,16 +141,38 @@ display: flex;
 flex-direction: column;
 align-items: center;
 }
-@media (max-width: 360px){
-        .tarjetas, .tarjetas-ataque {
-        flex-direction: column;
-        }
-}
+
 #ver-mapa{
         flex-direction: column;
         align-items: center;
         justify-content: center;
 }
-#mapa{
-        border: 2px solid white;
+
+#ver-mapa button {
+        background-color:transparent; 
+        border: 3px solid white;
+        color: greenyellow;
+        padding: 3px 11px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        margin: 10px;
+        border-radius: 20px;
+        transition-duration: .5s;
+        height: 50px;
+        width: 80px;
+}
+
+@media (max-width: 560px){
+        .tarjetas, .tarjetas-ataque {
+        flex-direction: column;
+        }
+}
+@media (max-width: 360px){
+        #ver-mapa div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        }
 }

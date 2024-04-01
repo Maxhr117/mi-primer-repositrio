@@ -30,7 +30,7 @@ let ataquesPokemonEnemigo
 let botonFuego
 let botonAgua
 let botonTierra
-let botones =[]
+let botones = []
 let indexAtaqueJugador
 let indexAtaqueEnemigo
 let victoriasJugador = 0
@@ -42,16 +42,30 @@ let lienzo = mapa.getContext("2d")
 let intervalo 
 let mapaBackground = new Image()
 mapaBackground.src = './mokemap.png'
+let alturaQueBuscamos
+let anchoDelMapa = window.innerWidth - 20
+const anchoMaximoDelMapa = 350
+
+if (anchoDelMapa > anchoMaximoDelMapa) {
+        anchoDelMapa = anchoMaximoDelMapa - 20
+}
+
+alturaQueBuscamos = anchoDelMapa * 600 / 800
+
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
+
+
 class Pokemon{
-        constructor(nombre, foto, vida, fotoMapa, x = 10, y = 10 ){
+        constructor(nombre, foto, vida, fotoMapa ){
                 this.nombre = nombre
                 this.foto = foto
                 this.vida = vida
                 this.ataques = []
-                this.x = x
-                this.y = y
                 this.ancho = 40
                 this.alto = 40
+                this.x = aleatorio(0, mapa.width - this.ancho)
+                this.y = aleatorio(0, mapa.height - this.alto)
                 this.mapaFoto = new Image()
                 this.mapaFoto.src = fotoMapa
                 this.veolcidadX = 0 
@@ -72,9 +86,9 @@ let staryu = new Pokemon('Staryu', 'staryu.png', 5, 'staryu2.png')   /* nombre *
 let cubone = new Pokemon('Cubone', 'cubone.png', 5, 'Cubone2.png')
 let charmander = new Pokemon('Charmander', 'charmander.png', 5, 'charmi.png')
 
-let staryuEnemigo = new Pokemon('Staryu', 'staryu.png', 5, 'staryu2.png',450, 320)   /* nombre *//* foto *//* vida */ 
-let cuboneEnemigo = new Pokemon('Cubone', 'cubone.png', 5, 'Cubone2.png', 150, 95)
-let charmanderEnemigo = new Pokemon('Charmander', 'charmander.png', 5, 'charmi.png', 500, 190)
+let staryuEnemigo = new Pokemon('Staryu', 'staryu.png', 5, 'staryu2.png')   /* nombre *//* foto *//* vida */ 
+let cuboneEnemigo = new Pokemon('Cubone', 'cubone.png', 5, 'Cubone2.png')
+let charmanderEnemigo = new Pokemon('Charmander', 'charmander.png', 5, 'charmi.png')
 
 pokemones.push(staryu,cubone,charmander) //esto es un arreglo(array)
 

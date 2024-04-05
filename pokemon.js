@@ -15,6 +15,7 @@ const contenedorAtaques = document.getElementById('contenedorAtaques')
 const sectionVerMapa = document.getElementById("ver-mapa")
 const mapa = document.getElementById("mapa")
 
+let jugadorId = null
 let pokemones = []//los corchetes cuadrados son para ir metiendo cada uno de los valores que me interesen. En este caso van a ser cada uno de los objetos que ya construimos.
 let ataqueJugador = []
 let ataqueEnemigo = []
@@ -98,14 +99,14 @@ staryu.ataques.push(
         {nombre: '💧', id: 'boton-agua'},
         {nombre: '💧', id: 'boton-agua'},
         {nombre: '🔥', id: 'boton-fuego'},
-        {   nombre: '🌱', id: 'boton-tierra'},
+        {nombre: '🌱', id: 'boton-tierra'},
 ) 
 staryuEnemigo.ataques.push(
         {nombre: '💧', id: 'boton-agua'},
         {nombre: '💧', id: 'boton-agua'},
         {nombre: '💧', id: 'boton-agua'},
         {nombre: '🔥', id: 'boton-fuego'},
-        {   nombre: '🌱', id: 'boton-tierra'},
+        {nombre: '🌱', id: 'boton-tierra'},
 ) 
 cubone.ataques.push(
         {nombre: '🌱', id: 'boton-tierra'},
@@ -158,12 +159,27 @@ function iniciarJuego(){
         botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
         botonReiniciar.addEventListener('click', reiniciarJuego)
+
+        unirseAlJuego()
 }
+
+function unirseAlJuego() {
+        fetch("http://localhost:8080/unirse")
+                .then(function (res){
+                if (res.ok) {
+                        res.text()
+                        .then(function (respuesta) {
+                                console.log(respuesta)
+                                jugadorId = respuesta
+                        })
+                }
+                })
+}
+
 function seleccionarMascotaJugador() {
+
         seleccionarMascota.style.display = 'none'
           
-        
-       
 
         if (inputStaryu.checked) {
                 spanMascotaJugador.innerHTML = inputStaryu.id
@@ -177,10 +193,26 @@ function seleccionarMascotaJugador() {
         } else {
                 alert('tienes que seleccionar una mascota')
         }
+
+        seleccionarPokemon(mascotaJugador)
+
         extraerAtaques(mascotaJugador)
         sectionVerMapa.style.display = 'flex'
         iniciarMapa() 
         
+}
+
+function seleccionarPokemon(mascotaJugador) {
+        fetch (`http://localhost:8080/pokemon/${jugadorId}` , {
+                method: "post",
+                headers: {
+                        "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                        pokemon: mascotaJugador
+                })
+        })
+       
 }
 function extraerAtaques(mascotaJugador){
         let ataques

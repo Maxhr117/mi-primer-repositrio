@@ -2,7 +2,7 @@ const express = require("express") //1st-importamos express.js para poder utiliz
 const cors = require("cors")    //agregamos libreria
 const app = express() //2nd-creamos una aplicacion con express.js
 
-
+app.use(express.static("public"))
 app.use(cors())    //deshabilite todos los posibles errores relacionados con cors
 app.use(express.json())  //habilite la capacidad de recibir peticiones post que contengan contenido en formato JSON
 
@@ -16,11 +16,18 @@ class Jugador {
     asignarPokemon(pokemon) {
         this.pokemon = pokemon
     }
+    actualizarPosicion(x, y) {
+        this.x = x
+        this.y = y
+    }
+    asignarAtaques(ataques) {
+        this.ataques = ataques
+    }
 }
 
 class Pokemon {
-constructor(nombre) {
-this.nombre = nombre
+    constructor(nombre) {
+        this.nombre = nombre
      }
 }
 
@@ -33,22 +40,62 @@ app.get("/unirse", (req, res) => {
 
     res.setHeader("Access-Control-Allow-Origin", "*")
     
-    res.send(id)        //3rd-le decimos a expres.js que cuando en la URL raiz reciba una peticion responda "Hola"
+    res.send(id)
 })
 
 app.post("/pokemon/:jugadorId", (req, res) => {
     const jugadorId = req.params.jugadorId || ""
     const nombre = req.body.pokemon || ""
     const pokemon = new Pokemon(nombre)
-    const jugadorindex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
-    if (jugadorindex >= 0) {
-        jugadores[jugadorindex].asignarPokemon(pokemon)
+
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+    if (jugadorIndex >= 0) {
+        jugadores[jugadorIndex].asignarPokemon(pokemon)
     }
     console.log(jugadores)
     console.log(jugadorId)
     res.end()
 })
 
+app.post("/pokemon/:jugadorId/posicion", (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+    const x = req.body.x || 0
+    const y = req.body.y || 0
+    
+    
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+    
+    if (jugadorIndex >= 0) {
+        
+        jugadores[jugadorIndex].actualizarPosicion(x, y)
+    }
+    const enemigos = jugadores.filter((jugador) => jugadorId !== jugador.id) 
+
+    res.send({
+        enemigos
+    })
+})
+
+app.post("/pokemon/:jugadorId/ataques", (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+    const ataques = req.body.ataques || []
+   
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+    
+    if (jugadorIndex >= 0) {
+        jugadores[jugadorIndex].asignarAtaques(ataques)
+    }
+    
+    res.end()
+})
+app.get("/pokemon/:jugadorId/ataques", (req,res) =>  {
+    const jugadorId = req.params.jugadorId || ""
+    const jugador = jugadores.find((jugador) => jugador.id === jugadorId)
+    res.send({
+        ataques: jugador.ataques || []
+    })
+})
+
 app.listen(8080, () => {     //4th-le decimos que escuche continuamente en el puerto 8000 las peticiones de los clientes para que todo el tiempo pueda responderles
-    console.log("Servido funcionando")
+    console.log("Servidor funcionando")
 })

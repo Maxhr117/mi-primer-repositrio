@@ -7,7 +7,7 @@ app.use(cors())    //deshabilite todos los posibles errores relacionados con cor
 app.use(express.json())  //habilite la capacidad de recibir peticiones post que contengan contenido en formato JSON
 
 
-const jugadores = []
+let jugadores = []
 
 class Jugador {
     constructor(id) {
@@ -42,7 +42,14 @@ app.get("/unirse", (req, res) => {
     
     res.send(id)
 })
+app.get("/limpiarJugadores", (req, res) => {  
 
+    jugadores = []
+
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    console.log(jugadores)
+    res.send("Se limpio el juego")
+})
 app.post("/pokemon/:jugadorId", (req, res) => {
     const jugadorId = req.params.jugadorId || ""
     const nombre = req.body.pokemon || ""

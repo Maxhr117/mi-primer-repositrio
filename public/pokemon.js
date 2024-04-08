@@ -47,7 +47,7 @@ let mapaBackground = new Image()
 mapaBackground.src = './mokemap.png'
 let alturaQueBuscamos
 let anchoDelMapa = window.innerWidth - 20
-const anchoMaximoDelMapa = 350
+const anchoMaximoDelMapa = 500
 
 if (anchoDelMapa > anchoMaximoDelMapa) {
         anchoDelMapa = anchoMaximoDelMapa - 20
@@ -150,13 +150,26 @@ function iniciarJuego(){
 }
 
 function unirseAlJuego() {
-        fetch("http://192.168.1.69:8080/unirse")
+        fetch("http://192.168.1.85:8080/unirse")
                 .then(function (res){
                 if (res.ok) {
                         res.text()
                         .then(function (respuesta) {
                                 console.log(respuesta)
                                 jugadorId = respuesta
+                        })
+                }
+                })
+}
+
+function limpiarJuego() {
+        fetch("http://192.168.1.85:8080/limpiarJugadores")
+                .then(function (res){
+                if (res.ok) {
+                        res.text()
+                        .then(function (respuesta) {
+                                console.log("ya se limpio el juego")
+                                
                         })
                 }
                 })
@@ -186,7 +199,7 @@ function seleccionarMascotaJugador() {
 }
 
 function seleccionarPokemon(mascotaJugador) {
-        fetch (`http://192.168.1.69:8080/pokemon/${jugadorId}` , {
+        fetch (`http://192.168.1.85:8080/pokemon/${jugadorId}` , {
                 method: "post",
                 headers: {
                         "Content-Type": "application/json"
@@ -249,7 +262,7 @@ function secuenciaAtaque() {
 }
 
 function enviarAtaques() {
-        fetch(`http://192.168.1.69:8080/pokemon/${jugadorId}/ataques`, {
+        fetch(`http://192.168.1.85:8080/pokemon/${jugadorId}/ataques`, {
                 method: "post",
                 headers: {
                         "Content-Type": "application/json"
@@ -262,7 +275,7 @@ function enviarAtaques() {
         intervalo = setInterval(obtenerAtaques, 50)
 }
 function obtenerAtaques() {
-        fetch(`http://192.168.1.69:8080/pokemon/${enemigoId}/ataques`)
+        fetch(`http://192.168.1.85:8080/pokemon/${enemigoId}/ataques`)
                 .then(function (res) {
                         if (res.ok) {
                                 res.json()
@@ -341,6 +354,7 @@ function combate() {
         }
 
         revisarVidas()
+        
 }        
 function revisarVidas() {
         if (victoriasJugador === victoriasEnemigo) {
@@ -365,6 +379,7 @@ function crearMensajeFinal(resultadoFinal) {
         sectionReiniciar.style.display = 'flex'
 }
 function reiniciarJuego() {
+        limpiarJuego()
         location.reload()
 }
 function aleatorio(min, max) {
@@ -393,7 +408,7 @@ function pintarCanvas() {
         
 }
 function enviarPosicion(x, y) {
-        fetch(`http://192.168.1.69:8080/pokemon/${jugadorId}/posicion`, {
+        fetch(`http://192.168.1.85:8080/pokemon/${jugadorId}/posicion`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
